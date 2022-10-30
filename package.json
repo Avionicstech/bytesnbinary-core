@@ -1,10 +1,11 @@
 {
-  "name": "bytesnbinary-core",
-  "version": "0.0.1",
+  "name": "@bytesnbinary/core",
+  "version": "0.0.2",
   "description": "Core dependencies for bytes n binary internal apps",
   "keywords": [
     "loopback-extension",
-    "loopback"
+    "loopback",
+    "bytesnbinary"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,7 +34,7 @@
     "url": ""
   },
   "author": "Rajeeb <rajeebabk@gmail.com>",
-  "license": "",
+  "license": "ISC",
   "files": [
     "README.md",
     "dist",
@@ -59,6 +60,7 @@
     "@loopback/core": "^4.0.4",
     "@loopback/eslint-config": "^13.0.1",
     "@loopback/testlab": "^5.0.1",
+    "@types/lodash": "^4.14.186",
     "@types/node": "^14.18.21",
     "eslint": "^8.17.0",
     "source-map-support": "^0.5.21",

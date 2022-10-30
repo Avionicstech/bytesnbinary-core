@@ -1,6 +1,7 @@
-import {BindingScope, injectable} from '@loopback/core';
+import {BindingScope, inject, injectable} from '@loopback/core';
 import {HttpErrors} from '@loopback/rest';
 import {promisify} from 'util';
+import {TokenServiceBindings} from '../keys';
 import {AuthUser} from '../models';
 const jwt = require('jsonwebtoken');
 const signAsync = promisify(jwt.sign);
@@ -8,7 +9,12 @@ const verifyAsync = promisify(jwt.verify);
 const decodeAsync = promisify(jwt.decode);
 @injectable({scope: BindingScope.TRANSIENT})
 export class JwtService {
-  constructor() {}
+  constructor(
+    @inject(TokenServiceBindings.TOKEN_SECRET)
+    private jwtSecret: string,
+    @inject(TokenServiceBindings.TOKEN_EXPIRES_IN)
+    private jwtExpiresIn: string,
+  ) {}
 
   async verifyToken(token: string): Promise<AuthUser> {
     if (!token) {
@@ -20,7 +26,7 @@ export class JwtService {
     let userProfile: AuthUser;
 
     try {
-      const decodedToken = await verifyAsync(token, process.env.JWT_SECRET);
+      const decodedToken = await verifyAsync(token, this.jwtSecret);
 
       userProfile = Object.assign({
         name: decodedToken.name,
@@ -54,7 +60,7 @@ export class JwtService {
     let token: string;
     try {
       token = await signAsync(userInfoForToken, process.env.JWT_SECRET, {
-        expiresIn: Number(process.env.JWT_EXPIRY),
+        expiresIn: Number(this.jwtExpiresIn),
       });
     } catch (error) {
       throw new HttpErrors.Unauthorized(`Error encoding token : ${error}`);
