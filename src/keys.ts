@@ -14,7 +14,7 @@ export namespace BytesnbinaryCoreComponentBindings {
 export namespace LoggerBindings {
   export const LOGGER = BindingKey.create<LoggerService>('services.logger');
 }
-export namespace TokenServiceBindings {
+export namespace AuthServiceBindings {
   export const TOKEN_SECRET = BindingKey.create<string>(
     'authentication.jwt.secret',
   );

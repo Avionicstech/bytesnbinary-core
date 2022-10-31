@@ -1,7 +1,7 @@
 import {BindingScope, inject, injectable} from '@loopback/core';
 import {HttpErrors} from '@loopback/rest';
 import {promisify} from 'util';
-import {TokenServiceBindings} from '../keys';
+import {AuthServiceBindings} from '../keys';
 import {AuthUser} from '../models';
 const jwt = require('jsonwebtoken');
 const signAsync = promisify(jwt.sign);
@@ -10,9 +10,9 @@ const decodeAsync = promisify(jwt.decode);
 @injectable({scope: BindingScope.TRANSIENT})
 export class JwtService {
   constructor(
-    @inject(TokenServiceBindings.TOKEN_SECRET)
+    @inject(AuthServiceBindings.TOKEN_SECRET)
     private jwtSecret: string,
-    @inject(TokenServiceBindings.TOKEN_EXPIRES_IN)
+    @inject(AuthServiceBindings.TOKEN_EXPIRES_IN)
     private jwtExpiresIn: string,
   ) {}
 
@@ -65,8 +65,6 @@ export class JwtService {
     } catch (error) {
       throw new HttpErrors.Unauthorized(`Error encoding token : ${error}`);
     }
-    console.log(token);
-
     return token;
   }
   async decodeToken(token: string): Promise<unknown> {

@@ -9,8 +9,8 @@ import {
   injectable,
 } from '@loopback/core';
 import {
+  AuthServiceBindings,
   BytesnbinaryCoreComponentBindings,
-  TokenServiceBindings,
   TokenServiceConstants,
 } from './keys';
 import {
@@ -24,10 +24,10 @@ import {
 })
 export class BytesnbinaryCoreComponent implements Component {
   bindings?: Binding[] = [
-    Binding.bind(TokenServiceBindings.TOKEN_SECRET).to(
+    Binding.bind(AuthServiceBindings.TOKEN_SECRET).to(
       TokenServiceConstants.TOKEN_SECRET_VALUE,
     ),
-    Binding.bind(TokenServiceBindings.TOKEN_EXPIRES_IN).to(
+    Binding.bind(AuthServiceBindings.TOKEN_EXPIRES_IN).to(
       TokenServiceConstants.TOKEN_EXPIRES_IN_VALUE,
     ),
   ];
