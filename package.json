@@ -1,6 +1,6 @@
 {
   "name": "@bytesnbinary/core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Core dependencies for bytes n binary internal apps",
   "keywords": [
     "loopback-extension",
